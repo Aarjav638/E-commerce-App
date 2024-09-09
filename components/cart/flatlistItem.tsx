@@ -16,7 +16,6 @@ const Item = ({
   quantity,
 }: ItemProps) => {
   const {cartItems} = useAppSelector(state => state.cart);
-  console.log('cartItems', cartItems);
   return (
     <View style={styles.productMainContainer}>
       <View style={styles.productContainer}>
@@ -31,14 +30,6 @@ const Item = ({
           <Text style={styles.RatingText}>Price: ${item.price.toFixed(2)}</Text>
 
           <View style={styles.quantityContainer}>
-            <Icon
-              name="cart-plus"
-              color={'grey'}
-              size={20}
-              onPress={() => handleAddToCart(item)}
-            />
-
-            <Text style={styles.Quantity}>{quantity}</Text>
             {cartItems.find(cartItem => cartItem.id === item.id) && (
               <Icon
                 name="trash"
@@ -47,6 +38,14 @@ const Item = ({
                 onPress={() => handleRemoveFromCart(item)}
               />
             )}
+
+            <Text style={styles.Quantity}>{quantity}</Text>
+            <Icon
+              name="cart-plus"
+              color={'grey'}
+              size={20}
+              onPress={() => handleAddToCart(item)}
+            />
           </View>
           <Text style={styles.RatingText}>
             Total: ${(item.price * quantity).toFixed(2)}
