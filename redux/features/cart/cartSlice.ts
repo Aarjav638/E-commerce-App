@@ -1,5 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {CartState} from '../../constants/type';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {CartState, Product} from '../../constants/type';
 
 const initialCartState = {
   cartItems: [],
@@ -10,11 +10,11 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: initialCartState,
   reducers: {
-    addToCart: (state: CartState, action) => {
+    addToCart: (state: CartState, action: PayloadAction<Product>) => {
       state.cartItems = [...state.cartItems, action.payload];
       state.addedToCart = true;
     },
-    removeFromCart: (state: CartState, action) => {
+    removeFromCart: (state: CartState, action: PayloadAction<{id: number}>) => {
       const index = state.cartItems.findIndex(
         item => item.id === action.payload.id,
       );

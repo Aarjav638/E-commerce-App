@@ -3,6 +3,7 @@ import productReducer from '../features/products/productSlice';
 import cartReducer from '../features/cart/cartSlice';
 import {persistReducer, persistStore} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {cartLoggingMiddleware} from '../middleWare/loggingMiddleWare';
 const persistCartConfig = {
   key: 'cart',
   storage: AsyncStorage,
@@ -17,7 +18,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(),
+    }).concat(cartLoggingMiddleware),
 });
 
 const persistor = persistStore(store);
