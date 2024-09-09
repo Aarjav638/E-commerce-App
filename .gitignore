@@ -1,7 +1,8 @@
 # OSX
 #
 .DS_Store
-
+.bundle
+.yarn
 # Xcode
 #
 build/
