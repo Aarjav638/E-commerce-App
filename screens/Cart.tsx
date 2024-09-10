@@ -4,8 +4,12 @@ import {useAppDispatch, useAppSelector} from '../redux/hooks/customHook';
 import Item from '../components/cart/FlatListItem';
 import {Product} from '../redux/constants/type';
 import {addToCart, removeFromCart} from '../redux/features/cart/cartSlice';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../components/Navigator';
 
-const Cart = () => {
+type CartProps = NativeStackScreenProps<RootStackParamList, 'Cart'>;
+
+const Cart = ({navigation}: CartProps) => {
   const dispatch = useAppDispatch();
   const {cartItems} = useAppSelector(state => state.cart);
   const totalPrice = Number(
@@ -92,7 +96,13 @@ const Cart = () => {
         }
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('Checkout', {
+            totalPayableAmount: Number(totalPayableAmount.toFixed(2)),
+          })
+        }>
         <Text style={styles.buttonText}>Checkout</Text>
       </TouchableOpacity>
     </View>
