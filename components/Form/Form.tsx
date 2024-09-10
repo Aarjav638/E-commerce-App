@@ -1,13 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useAtom} from 'jotai';
-import {
-  FormAtom,
-  //   addAddress,
-  //   fetchaddress,
-  FormState,
-  AddressAtom,
-} from '../../atoms/FormAtom';
+import {FormAtom, FormState, AddressAtom} from '../../atoms/formAtom';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Button, TextInput} from 'react-native-paper';
 import {formSchema} from '../../schema/formSchema';
