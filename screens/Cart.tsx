@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useCallback, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../redux/hooks/customHook';
-import Item from '../components/cart/flatlistItem';
+import Item from '../components/cart/FlatListItem';
 import {Product} from '../redux/constants/type';
 import {addToCart, removeFromCart} from '../redux/features/cart/cartSlice';
 
