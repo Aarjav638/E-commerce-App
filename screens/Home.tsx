@@ -2,7 +2,7 @@ import React from 'react';
 import FlatListSearch from '../components/FlatListSearch';
 import Header from '../components/Header';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../components/navigator';
+import {RootStackParamList} from '../components/Navigator';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 

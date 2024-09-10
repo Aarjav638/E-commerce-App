@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-import {RootStackParamList} from './navigator';
+import {RootStackParamList} from './Navigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useAppSelector} from '../redux/hooks/customHook';
 
