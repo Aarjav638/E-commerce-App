@@ -1,7 +1,12 @@
 import {z} from 'zod';
 
 export const formSchema = z.object({
-  name: z.string().min(3),
+  name: z
+    .string()
+    .min(3)
+    .refine(name => /^[a-zA-Z ]+$/.test(name), {
+      message: 'Name must only contain alphabets',
+    }),
   email: z.string().email(),
   street: z.string(),
   city: z.string(),
