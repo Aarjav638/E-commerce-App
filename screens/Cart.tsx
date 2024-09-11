@@ -5,7 +5,7 @@ import Item from '../components/cart/FlatListItem';
 import {Product} from '../redux/constants/type';
 import {addToCart, removeFromCart} from '../redux/features/cart/cartSlice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../components/Navigator';
+import {RootStackParamList} from '../components/Navigation/StackNavigator';
 
 type CartProps = NativeStackScreenProps<RootStackParamList, 'Cart'>;
 

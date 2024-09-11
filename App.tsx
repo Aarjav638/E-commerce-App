@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigator from './components/Navigator';
+import Navigator from './components/Navigation/StackNavigator';
 
 const App = () => {
   return <Navigator />;
