@@ -1,6 +1,6 @@
 import {atom} from 'jotai';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {atomWithStorage, createJSONStorage} from 'jotai/utils';
+import {createJSONStorage, atomWithStorage} from 'jotai/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type FormState = {
   name: string;
@@ -28,20 +28,18 @@ const FormAtom = atom<FormState>({
   cvv: '',
 });
 
-// const storage = createJSONStorage<FormState[]>(() => AsyncStorage);
-// const AddressAtom = atomWithStorage<FormState[]>('addresses', [], storage);
+const storage = createJSONStorage<FormState[]>(() => AsyncStorage);
+const AddressAtom = atomWithStorage<FormState[]>('addresses', [], storage);
 
-// const fetchaddress = atom(async get => {
-//   const addresses = get(AddressAtom);
-//   const data = await addresses;
-//   return data;
-// });
+const fetchaddress = atom(async get => {
+  const addresses = get(AddressAtom);
+  const data = await addresses;
+  return data;
+});
 
-// const addAddress = atom(null, async (get, set, form: FormState) => {
-//   const addresses = await get(AddressAtom);
-//   set(AddressAtom, [...addresses, form]);
-// });
+const addAddress = atom(null, async (get, set, form: FormState) => {
+  const addresses = await get(AddressAtom);
+  set(AddressAtom, [...addresses, form]);
+});
 
-const AddressAtom = atom<FormState[]>([]);
-
-export {FormAtom, AddressAtom};
+export {FormAtom, fetchaddress, addAddress};

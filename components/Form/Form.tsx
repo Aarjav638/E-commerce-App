@@ -1,12 +1,18 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useAtom} from 'jotai';
-import {FormAtom, FormState, AddressAtom} from '../../atoms/formAtom';
+import {
+  FormAtom,
+  FormState,
+  fetchaddress,
+  addAddress,
+} from '../../atoms/formAtom';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Button, TextInput} from 'react-native-paper';
 import {formSchema} from '../../schema/formSchema';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../Navigator';
+import {RootStackParamList} from '../Navigation/StackNavigator';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TextInputWithErrorProps = {
   label: string;
@@ -63,7 +69,8 @@ type CheckoutProps = NativeStackScreenProps<RootStackParamList, 'Checkout'>;
 const Form: React.FC<CheckoutProps> = ({navigation}: CheckoutProps) => {
   const [formAtom, setFormAtom] = useAtom<FormState>(FormAtom);
   const [showPassword, setShowPassword] = useState(false);
-  const [addressAtom, setAddressAtom] = useAtom(AddressAtom);
+  const [addressAtom] = useAtom(fetchaddress);
+  const [, setAddresses] = useAtom(addAddress);
   const [errors, setErrors] = useState<
     Partial<Record<keyof FormState, string>>
   >({});
@@ -114,9 +121,10 @@ const Form: React.FC<CheckoutProps> = ({navigation}: CheckoutProps) => {
     setShowPassword(prev => !prev);
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateForm()) {
-      setAddressAtom(prev => [...prev, formAtom]);
+      setAddresses(formAtom);
+
       navigation.navigate('Payment', {Address: addressAtom});
     } else {
       console.log('Form is invalid');
