@@ -1,26 +1,38 @@
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../components/Navigator';
+import {RootStackParamList} from '../components/Navigation/StackNavigator';
+import {Button} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {RegistrationFormState} from './miniApp/schema/formSchema';
 
 type PaymentProps = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
-const Payment = ({route}: PaymentProps) => {
-  const params = route.params.Address;
+const Payment = ({navigation}: PaymentProps) => {
+  const [users, setUsers] = React.useState<RegistrationFormState[]>([]);
+  React.useEffect(() => {
+    getStoredData();
+  }, []);
+  const getStoredData = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('User');
+      if (storedData !== null) {
+        console.log(storedData);
+        setUsers(JSON.parse(storedData));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
-      {params.map((item, index) => (
-        <>
-          <Text key={index}>{item.name}</Text>
-          <Text key={index + 1}>{item.email}</Text>
-          <Text key={index + 2}>{item.street}</Text>
-          <Text key={index + 3}>{item.city}</Text>
-
-          <Text key={index + 4}>{item.state}</Text>
-          <Text key={index + 5}>{item.zip}</Text>
-        </>
-      ))}
+      <Button
+        onPress={() =>
+          navigation.navigate(users.length > 0 ? 'miniApp' : 'OnBoarding')
+        }>
+        GO to Mini App
+      </Button>
     </SafeAreaView>
   );
 };
